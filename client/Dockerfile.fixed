@@ -1,0 +1,40 @@
+# Multi-stage build for React frontend with proper dependency resolution
+FROM node:20-alpine as base
+
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 make g++
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Clear npm cache to avoid corrupted optional dependencies
+RUN npm cache clean --force
+
+# Install ALL dependencies (including devDependencies) for development mode
+# Vite needs dev dependencies to run the dev server
+RUN npm install --include=dev --force
+
+# Force install platform-specific Rollup binaries
+RUN npm install @rollup/rollup-linux-x64-musl --no-save --force
+
+# Copy source code after dependencies are installed
+COPY . .
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S react -u 1001 && \
+    chown -R react:nodejs /app
+USER react
+
+# Expose Vite dev server port
+EXPOSE 5173
+
+# Set environment variables for Vite
+ENV NODE_ENV=development
+ENV VITE_API_URL=http://localhost:8000
+
+# Default command - start development server
+CMD ["npm", "run", "dev"]

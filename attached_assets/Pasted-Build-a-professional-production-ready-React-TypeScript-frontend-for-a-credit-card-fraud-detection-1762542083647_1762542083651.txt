@@ -1,0 +1,417 @@
+Build a professional, production-ready React + TypeScript frontend for a credit card fraud detection system using LSTM-RNN machine learning models. This is an academic project requiring enterprise-grade UI/UX patterns.
+Core Requirements
+1. Technology Stack
+
+React 18+ with TypeScript (strict mode)
+Vite for build tooling
+TailwindCSS for styling
+React Hook Form for form management
+Zod for schema validation
+Recharts or Chart.js for data visualization
+Axios for API calls
+React Router v6 for navigation
+Lucide React for icons
+
+2. Application Architecture
+Pages/Routes:
+
+Dashboard (/) - Main analytics overview
+Transaction Monitor (/transactions) - Real-time transaction list
+Fraud Detection (/detect) - Manual transaction testing interface
+Analytics (/analytics) - Detailed charts and insights
+Model Info (/model) - LSTM-RNN model architecture details
+History (/history) - Detection history logs
+
+3. Dashboard Page Features
+Create a comprehensive dashboard with:
+
+Key Metrics Cards (4-column grid):
+
+Total Transactions Analyzed
+Fraud Cases Detected
+Detection Accuracy Rate
+Average Processing Time
+
+
+Real-time Fraud Rate Chart:
+
+Line chart showing fraud rate over the last 24 hours
+Time intervals on X-axis, percentage on Y-axis
+
+
+Transaction Distribution:
+
+Donut/Pie chart: Legitimate vs Fraudulent
+Use color coding: Green for legitimate, Red for fraud
+
+
+Recent Alerts Table:
+
+Last 10 flagged transactions
+Columns: Transaction ID, Amount, Timestamp, Risk Score, Status
+Color-coded risk levels (High: red, Medium: yellow, Low: orange)
+
+
+
+4. Transaction Monitor Page
+Build a real-time monitoring interface with:
+Filters Section:
+
+Date range picker (From - To)
+Amount range slider (min-max)
+Status dropdown (All, Fraudulent, Legitimate, Pending)
+Risk level filter (High, Medium, Low)
+Search by Transaction ID
+
+Transaction Table:
+
+Paginated table (10/25/50 per page)
+Sortable columns:
+
+Transaction ID
+Date & Time
+Card Number (masked: **** **** **** 1234)
+Amount ($)
+Merchant Category
+Location
+Risk Score (0-100%)
+Status Badge
+Actions (View Details button)
+
+
+
+Transaction Details Modal:
+
+Full transaction information
+LSTM model prediction confidence
+Feature importance breakdown (bar chart)
+Geographic map showing transaction location
+Similar past transactions
+Manual override option (for educational purposes)
+
+5. Fraud Detection Page
+Create an interactive testing interface:
+Input Form:
+
+Card Information Section:
+
+Card number (with masking)
+Transaction amount (currency input)
+Merchant name and category (dropdown)
+Transaction timestamp (date-time picker)
+
+
+Advanced Features Section:
+
+Distance from last transaction (km)
+Time since last transaction (minutes)
+Transaction frequency (last 24h)
+Average transaction amount (historical)
+Is foreign transaction? (toggle)
+Is online transaction? (toggle)
+
+
+
+Prediction Results Card:
+
+Large visual indicator (checkmark or warning icon)
+Fraud probability percentage (with progress bar)
+Risk level badge
+Confidence score
+LSTM model output visualization
+Feature importance chart
+Recommendation text
+
+Batch Upload:
+
+CSV file upload component
+Drag-and-drop zone
+CSV template download button
+Batch processing results table
+
+6. Analytics Page
+Comprehensive analytics dashboard:
+Temporal Analysis:
+
+Fraud trends over time (line chart - daily/weekly/monthly views)
+Hourly heatmap (which hours have most fraud)
+Day-of-week analysis (bar chart)
+
+Transaction Analysis:
+
+Amount distribution histogram (legitimate vs fraud)
+Merchant category breakdown (horizontal bar chart)
+Geographic distribution (interactive map or country list)
+
+Model Performance:
+
+Confusion matrix visualization
+ROC curve (if data available)
+Precision, Recall, F1-Score metrics
+Model accuracy over time (line chart)
+
+Feature Importance:
+
+Bar chart showing which features contribute most to predictions
+Explanation of each feature's impact
+
+7. Model Information Page
+Educational content about the LSTM-RNN:
+Architecture Visualization:
+
+Interactive diagram of LSTM layers
+Input → Hidden Layers → Output flow
+Neuron count per layer
+
+Model Specifications:
+
+Training dataset size
+Number of epochs
+Batch size
+Learning rate
+Optimizer used
+Loss function
+Training/validation split
+
+Performance Metrics:
+
+Accuracy, Precision, Recall, F1-Score
+Training time
+Inference time per transaction
+Model version and last updated date
+
+Educational Section:
+
+What is LSTM-RNN? (collapsible explanation)
+How it detects fraud (step-by-step)
+Advantages over traditional methods
+
+8. History Page
+Detection logs and audit trail:
+Search & Filter:
+
+Date range picker
+Search by transaction ID or card number
+Filter by prediction result
+Export to CSV button
+
+History Table:
+
+Timestamp
+Transaction details summary
+Prediction result
+Confidence score
+Processing time (ms)
+View details button
+
+9. UI/UX Requirements
+Design System:
+
+Modern, professional color scheme:
+
+Primary: Blue (#3B82F6)
+Success: Green (#10B981)
+Warning: Yellow (#F59E0B)
+Danger: Red (#EF4444)
+Neutral: Gray shades
+
+
+
+Components:
+
+Reusable Card component with shadow and hover effects
+Loading skeletons for data fetching
+Toast notifications for success/error messages
+Confirm dialogs for critical actions
+Empty states with helpful illustrations
+Error boundaries for error handling
+
+Responsive Design:
+
+Mobile-first approach
+Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
+Collapsible sidebar on mobile
+Touch-friendly buttons (min 44x44px)
+
+Accessibility:
+
+ARIA labels on all interactive elements
+Keyboard navigation support
+Focus indicators
+Screen reader friendly
+Color contrast ratio > 4.5:1
+
+10. Layout Components
+Navbar:
+
+Logo/project name on left
+Navigation links
+User profile dropdown (mock for now)
+Notifications bell icon with badge
+Dark mode toggle (optional but impressive)
+
+Sidebar:
+
+Icon + label navigation
+Active state highlighting
+Collapsible on mobile
+Smooth transitions
+
+Footer:
+
+Copyright information
+College project disclaimer
+Links to documentation/GitHub
+
+11. State Management
+
+Use React Context for:
+
+Theme (light/dark mode)
+User preferences
+Global notifications
+
+
+Local component state for:
+
+Form inputs
+UI toggles
+Modal visibility
+
+
+Consider TanStack Query (React Query) for:
+
+API data fetching
+Caching
+Automatic refetching
+
+
+
+12. API Integration Setup
+Create mock API structure (assuming backend endpoints):
+typescript// Example API endpoints structure
+/api/dashboard/stats
+/api/transactions?page=1&limit=10&status=fraud
+/api/detect (POST with transaction data)
+/api/analytics/trends
+/api/model/info
+/api/history?from=date&to=date
+```
+
+- Include loading states
+- Error handling with retry logic
+- Success/error toast notifications
+- Request timeout handling
+
+#### 13. **Form Validation**
+
+Use Zod schemas for:
+- Transaction amount (positive number, max 6 digits)
+- Card number (16 digits, Luhn algorithm validation)
+- Date validations (not future dates)
+- Required field validations
+- Real-time validation feedback
+
+#### 14. **Performance Optimizations**
+
+- Lazy load routes with React.lazy()
+- Memoize expensive calculations with useMemo
+- Debounce search inputs (300ms)
+- Virtual scrolling for large tables (react-window)
+- Image optimization
+- Code splitting by route
+
+#### 15. **Additional Features**
+
+**Nice-to-haves for extra credit:**
+- Dark mode implementation
+- Export reports to PDF
+- Real-time WebSocket updates simulation
+- Animated transitions between pages
+- Comparison mode (compare two transactions)
+- Saved filters/preferences
+- Print-friendly views
+
+#### 16. **Data Mocking**
+
+Since this is a college project, create:
+- Mock transaction data (100+ samples)
+- Faker.js or similar for realistic data
+- Mock API responses with realistic delays
+- Seeded random data for consistency
+
+#### 17. **Code Quality Standards**
+
+- Functional components with hooks only
+- Custom hooks for reusable logic
+- TypeScript interfaces for all props
+- ESLint + Prettier configuration
+- Component folder structure:
+```
+  /components
+    /ui (reusable components)
+    /features (feature-specific)
+    /layouts
+  /pages
+  /hooks
+  /utils
+  /types
+  /services (API calls)
+  /constants
+18. Documentation Requirements
+Include inline comments for:
+
+Complex algorithms
+API integration points
+Custom hooks logic
+Utility functions
+
+19. Testing Considerations
+Prepare structure for:
+
+Component testing setup
+Form validation testing
+Mock data generators
+
+20. Demo Data Scenarios
+Create sample scenarios:
+
+High-risk fraud transaction
+Low-risk legitimate transaction
+Borderline case (50% confidence)
+Batch of mixed transactions
+
+
+Design Inspiration
+Look similar to modern fintech dashboards like:
+
+Stripe Dashboard
+Plaid Dashboard
+Datadog monitoring
+Professional, clean, data-focused
+
+
+Deliverable Checklist
+
+ All 6 pages fully functional
+ Responsive on mobile, tablet, desktop
+ All forms with proper validation
+ All charts rendering with mock data
+ Smooth page transitions
+ Loading states everywhere
+ Error handling implemented
+ TypeScript with no 'any' types
+ Clean, organized code structure
+ Professional UI/UX polish
+
+
+Priority Order
+
+Dashboard (core metrics and overview)
+Fraud Detection page (main functionality)
+Transaction Monitor (data viewing)
+Analytics (visualizations)
+Model Info (educational)
+History (audit trail)
+
+Build this as a production-ready MVP that demonstrates enterprise-level frontend development skills suitable for a college project showcase.
